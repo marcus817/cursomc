@@ -1,7 +1,6 @@
 package com.marcus.cursomc;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.marcus.cursomc.domain.Categoria;
 import com.marcus.cursomc.domain.Cidade;
+import com.marcus.cursomc.domain.Cliente;
+import com.marcus.cursomc.domain.Endereco;
 import com.marcus.cursomc.domain.Estado;
 import com.marcus.cursomc.domain.Produto;
 import com.marcus.cursomc.repositories.CategoriaRepository;
 import com.marcus.cursomc.repositories.CidadeRepository;
+import com.marcus.cursomc.repositories.ClienteRepository;
+import com.marcus.cursomc.repositories.EnderecoRepository;
 import com.marcus.cursomc.repositories.EstadoRepository;
 import com.marcus.cursomc.repositories.ProdutoRepository;
+import com.marcus.cursomc.resources.enums.TipoCliente;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
@@ -32,6 +36,12 @@ public class CursomcApplication implements CommandLineRunner{
 	
 	@Autowired
 	CidadeRepository cidadeRepository;
+	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -74,5 +84,13 @@ public class CursomcApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
 		
+		Cliente cli1 = new Cliente(null, "Marcus Santos", "marcus817@gmail.com", "05386568400", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("996744186", "34323326"));
+		
+		Endereco end1 = new Endereco(null, "Rua do Jasmin", "52", "Apt 203", "Casa Caiada", "22333150", cli1, cid1);
+		Endereco end2 = new Endereco(null, "Av. Paulista", "1043", "TI", "Centro", "11333000", cli1, cid2);
+		
+		clienteRepository.save(cli1);
+		enderecoRepository.saveAll(Arrays.asList(end1,end2));
 	}
 }
