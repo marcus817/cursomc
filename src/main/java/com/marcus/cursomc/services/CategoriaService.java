@@ -3,6 +3,7 @@ package com.marcus.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcus.cursomc.domain.Categoria;
@@ -30,5 +31,16 @@ public class CategoriaService {
 	public Categoria update(Categoria categoria) {
 		find(categoria.getId());
 		return repo.save(categoria);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Não é permitido remover categoria com produto");
+		}
 	}
 }
