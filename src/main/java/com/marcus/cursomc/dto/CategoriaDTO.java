@@ -13,8 +13,8 @@ public class CategoriaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	@NotNull
-	@Size(min=2, max=10, message="Nome não pode ser menor que 2 e conter no máximo 10 caracteres")
+	@NotNull(message="Campo não pode ser vazio")
+	@Size(min=4, max=80, message="Nome não pode ser menor que 2 e conter no máximo 10 caracteres")
 	private String nome;
 	
 	public CategoriaDTO() {
