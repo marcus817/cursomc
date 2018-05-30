@@ -23,6 +23,10 @@ public class ClienteDTO implements Serializable{
 	@Email
 	private String email;
 	
+	
+	
+	
+
 	public ClienteDTO() {
 		
 	}
@@ -56,5 +60,6 @@ public class ClienteDTO implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
 }
